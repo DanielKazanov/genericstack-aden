@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  */
 
 /**
- * @author Your name here
+ * @author Daniel Kazanov
  *
  */
 public class GenericStack<E> {
@@ -35,6 +36,33 @@ public class GenericStack<E> {
 	 * e) push(o) - adds the object to the top of stack/
 	 * 
 	 */
+	public boolean empty() {
+		return stack.size() == 0;
+	}
+	
+	public int size() {
+		return stack.size();
+	}
+	
+	public E peek() {
+		if (empty()) {
+			throw new EmptyStackException();
+		}
+		return stack.get(size() - 1);
+	}
+	
+	public E pop() {
+		if (empty()) {
+			throw new EmptyStackException();
+		}
+		E o = peek();
+		stack.remove(size() - 1);
+		return o;
+	}
+	
+	public void push(E o) {
+		stack.add((E)o);
+	}
 	
 	/**
 	 * 	 * To string

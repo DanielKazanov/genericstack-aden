@@ -1,6 +1,10 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.EmptyStackException;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -8,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 /**
- * @author Your name here
+ * @author Daniel Kazanov
  *
  */
 @TestMethodOrder(OrderAnnotation.class)
@@ -20,7 +24,9 @@ class GenericStackTest {
 	@Test
 	@Order(1)
 	void test_EmptyStack() {
-		fail();
+		GenericStack<Integer> stack = new GenericStack<>();
+		boolean empty = stack.empty();
+		assertEquals(true, empty);
 	}
 	
 	/**
@@ -29,7 +35,9 @@ class GenericStackTest {
 	@Test
 	@Order(2)
 	void test_StackExceptions() {
-		fail();
+		GenericStack<Integer> stack = new GenericStack<>();
+		assertThrows(EmptyStackException.class,() -> stack.peek());
+		assertThrows(EmptyStackException.class,() -> stack.pop());
 	}
 	
 	/**
@@ -39,7 +47,12 @@ class GenericStackTest {
 	 */
 	@Test
 	void test_PushPeek() {	
-		fail();
+		GenericStack<Integer> stack = new GenericStack<>();
+		boolean empty = stack.empty();
+		assertEquals(true, empty);
+		stack.push(1);
+		int size = stack.size();
+		assertEquals(1, size);
 	}
 
 	/**
@@ -49,7 +62,22 @@ class GenericStackTest {
 	 */
 	@Test
 	void test_Pop() {
-		fail();
+		GenericStack<Integer> stack = new GenericStack<>();
+		stack.push(1);
+		stack.push(2);
+		stack.push(3);
+		int num = stack.pop();
+		int size = stack.size();
+		assertEquals(3, num);
+		assertEquals(2, size);
+		int num1 = stack.pop();
+		int size1 = stack.size();
+		assertEquals(2, num1);
+		assertEquals(1, size1);
+		int num2 = stack.pop();
+		boolean empty = stack.empty();
+		assertEquals(1, num2);
+		assertEquals(true, empty);
+//		fail();
 	}
-
 }
